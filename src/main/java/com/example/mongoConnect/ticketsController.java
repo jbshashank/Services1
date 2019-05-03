@@ -47,37 +47,37 @@ public class ticketsController {
 		DateFormat dtf = new SimpleDateFormat("dd/MM/yy");
 		DateFormat ticketDate = new SimpleDateFormat("dd/MM/yy, hh:mm");
 		MongoClient client = new MongoClient("localhost", 27017);
-		DB dbs = client.getDB("ayushya");
-		DBCollection ticketsCollection = dbs.getCollection("tickets");
-		DBCursor lastIns = ticketsCollection.find().sort(new BasicDBObject("_id", -1));
-		DBObject lastInsertedTicket = lastIns.next();
-		String idOfTicket = lastInsertedTicket.get("_id").toString();
-		String dateOfTicket = lastInsertedTicket.get("date_of_post").toString().split(",")[0];
-		String tickNum = idOfTicket.substring(idOfTicket.length()-3);
+// 		DB dbs = client.getDB("ayushya");
+// 		DBCollection ticketsCollection = dbs.getCollection("tickets");
+// 		DBCursor lastIns = ticketsCollection.find().sort(new BasicDBObject("_id", -1));
+// 		DBObject lastInsertedTicket = lastIns.next();
+// 		String idOfTicket = lastInsertedTicket.get("_id").toString();
+// 		String dateOfTicket = lastInsertedTicket.get("date_of_post").toString().split(",")[0];
+// 		String tickNum = idOfTicket.substring(idOfTicket.length()-3);
 		Date date = new Date();
 		String dateStr = dtf.format(date);
-		if(dateStr.equals(dateOfTicket)) {
-			System.out.println(dateStr);
-			System.out.println(dateOfTicket);
-			int ticketsCount = Integer.parseInt(tickNum);
-			ticketNumber = Long.toString(ticketsCount+1);
-			if(ticketNumber.length() == 1)
-				ticketNumber = "00" + ticketNumber;
-			if(ticketNumber.length() == 2)
-				ticketNumber = "0" + ticketNumber;
-		}else {
-			System.out.println(dateStr);
-			System.out.println(dateOfTicket);
-			ticketNumber = "000";
-		}
-		String ticketDateStr = ticketDate.format(date);
-		String[] splitDate = dateStr.split("/");
-		if(splitDate[0].length() == 1)
-			splitDate[0] = "0"+splitDate[0];
-		if(splitDate[1].length() == 1)
-			splitDate[1] = "0"+splitDate[1];
-		String tricketNumber = "ATAS"+splitDate[0]+splitDate[1]+splitDate[2] + ticketNumber;
-		tick.set_id(tricketNumber);
+// 		if(dateStr.equals(dateOfTicket)) {
+// 			System.out.println(dateStr);
+// 			System.out.println(dateOfTicket);
+// 			int ticketsCount = Integer.parseInt(tickNum);
+// 			ticketNumber = Long.toString(ticketsCount+1);
+// 			if(ticketNumber.length() == 1)
+// 				ticketNumber = "00" + ticketNumber;
+// 			if(ticketNumber.length() == 2)
+// 				ticketNumber = "0" + ticketNumber;
+// 		}else {
+// 			System.out.println(dateStr);
+// 			System.out.println(dateOfTicket);
+// 			ticketNumber = "000";
+// 		}
+ 		String ticketDateStr = ticketDate.format(date);
+// 		String[] splitDate = dateStr.split("/");
+// 		if(splitDate[0].length() == 1)
+// 			splitDate[0] = "0"+splitDate[0];
+// 		if(splitDate[1].length() == 1)
+// 			splitDate[1] = "0"+splitDate[1];
+// 		String tricketNumber = "ATAS"+splitDate[0]+splitDate[1]+splitDate[2] + ticketNumber;
+// 		tick.set_id(tricketNumber);
 		tick.setDate_of_post(ticketDateStr);
 		repository.save(tick);
 		return tick;
